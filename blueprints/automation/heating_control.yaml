@@ -1,0 +1,45 @@
+blueprint:
+  name: Window heating control
+  description: Controls the heating by the window state
+  domain: automation
+  source_url: 
+  author: EinRainerZufall
+  input:
+    window_entity:
+      name: Window
+      description: The window to controll the heater
+      selector:
+        entity:
+          filter:
+            domain: binary_sensor
+            device_class:
+              - window
+              - door
+          multiple: true
+    target_area:
+      name: Heater
+      description: The heater to controll
+      selector:
+        target:
+          entity:
+            domain: climate
+
+trigger:
+  - platform: state
+    entity_id: !input window_entity
+
+action:
+  if:
+    - condition: state
+      entity_id: !input window_entity
+      state: "off"
+  then:
+    - service: climate.set_hvac_mode
+      data:
+        hvac_mode: auto
+      target: !input target_area
+  else:
+    - service: climate.set_hvac_mode
+      data:
+        hvac_mode: "off"
+      target: !input target_area
