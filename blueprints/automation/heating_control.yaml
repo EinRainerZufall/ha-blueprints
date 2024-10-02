@@ -36,12 +36,12 @@ action:
       entity_id: !input control_entity
       state: "off"
   then:
-    - service: climate.set_hvac_mode
+    - action: climate.set_hvac_mode
       data:
         hvac_mode: auto
       target: !input target_area
   else:
-    - service: climate.set_hvac_mode
+    - action: climate.set_hvac_mode
       data:
         hvac_mode: "off"
       target: !input target_area
