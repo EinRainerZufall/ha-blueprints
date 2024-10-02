@@ -34,13 +34,14 @@ action:
   if:
     - condition: state
       entity_id: !input control_entity
-      state: "off"
+  #    state: "off"
+      state: "on"
   then:
-    - action: climate.set_hvac_mode
-      data:
-        hvac_mode: auto
-      target: !input target_area
-  else:
+  #   - action: climate.set_hvac_mode
+  #     data:
+  #       hvac_mode: auto
+  #     target: !input target_area
+  # else:
     - action: climate.set_hvac_mode
       data:
         hvac_mode: "off"
